@@ -1,3 +1,0 @@
-interface User {
-    username: string
-}

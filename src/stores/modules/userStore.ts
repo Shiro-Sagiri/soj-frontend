@@ -1,19 +1,41 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import ACCESS_ENUM from '@/access/accessEnum'
+import { UserService } from '@/api'
 
-export const useUserStore = defineStore('user', () => {
-  const loginUser = ref({
-    username: 'shiro',
-    userRole: ACCESS_ENUM.ADMIN
-  })
+export const useUserStore = defineStore(
+  'user',
+  () => {
+    const token = ref('')
+    const setToken = (newValue: string) => {
+      token.value = newValue
+    }
 
-  const getUserInfo = () => {
-    //TODO get user info from server
+    const loginUser = ref({
+      userName: '',
+      userRole: '',
+      userAvatar: ''
+    })
+
+    const getUserInfo = async () => {
+      const res = await UserService.getLoginUser()
+      if (res.code === 0) {
+        loginUser.value = res.data
+      } else {
+        loginUser.value.userRole = ACCESS_ENUM.NOT_LOGIN
+      }
+    }
+
+    return {
+      loginUser,
+      getUserInfo,
+      token,
+      setToken
+    }
+  },
+  {
+    persist: {
+      key: 'persist-user'
+    }
   }
-
-  return {
-    loginUser,
-    getUserInfo
-  }
-})
+)

@@ -11,21 +11,26 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
       <router-view></router-view>
     </a-layout-content>
     <a-layout-footer class="footer">
-      <a href="https://github.com/Shiro-Sagiri" target="_blank"> soj by Shiro </a>
+      <a href="https://github.com/Shiro-Sagiri" target="_blank">
+        soj by Shiro
+      </a>
     </a-layout-footer>
   </a-layout>
 </template>
 
 <style scoped>
 .content {
-  background: linear-gradient(to right, #eee, #fff);
   padding: 20px;
+  text-align: center;
+  background: url(https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png)
+  0 0 / 100% 100%;
+  height: 100vh;
 }
 
 .footer {
   background-color: #efefef;
   padding: 16px;
-  position: absolute;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;

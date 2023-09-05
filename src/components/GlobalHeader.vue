@@ -7,8 +7,8 @@ import { checkAccess } from '@/access/checkAccess'
 
 const router = useRouter()
 const { user } = useStore()
+const openSelect = ref(false)
 
-//TODO 直接访问页面,即使没有权限也会显示内容
 const hidedRoutes = computed(() => {
   return routes.filter((item) => {
     if (item.meta?.hideInMenu) {
@@ -23,20 +23,34 @@ const doMenuClick = (key: string) => {
     path: key
   })
 }
+const handleSelect = (key: { to: string }) => {
+  router.push(key.to)
+  openSelect.value = false
+}
 
 const selectedKeys = ref(['/'])
 
 router.afterEach((to) => {
   selectedKeys.value = [to.path]
 })
+
+const link = computed(() => `/user/${user.loginUser.userName}`)
 </script>
 
 <template>
   <a-row id="global-header" align="center" :wrap="false">
     <a-col flex="auto">
       <div>
-        <a-menu mode="horizontal" :selected-keys="selectedKeys" @menu-item-click="doMenuClick">
-          <a-menu-item key="0" :style="{ padding: 0, marginRight: '38px' }" disabled>
+        <a-menu
+          mode="horizontal"
+          :selected-keys="selectedKeys"
+          @menu-item-click="doMenuClick"
+        >
+          <a-menu-item
+            key="0"
+            :style="{ padding: 0, marginRight: '38px' }"
+            disabled
+          >
             <div class="title-bar">
               <img class="logo" src="../assets/shiro2.png" alt="" />
               <div class="title">Shiro OJ</div>
@@ -48,8 +62,67 @@ router.afterEach((to) => {
         </a-menu>
       </div>
     </a-col>
-    <a-col flex="100px">
-      <div class="username">{{ user.loginUser.username ? user.loginUser.username : '未登录' }}</div>
+    <a-col flex="200px">
+      <div class="user">
+        <div class="avatar">
+          <a-link :href="link" :hoverable="false">
+            <a-avatar
+              v-if="!user.loginUser.userName || !user.loginUser.userAvatar"
+              :style="{ backgroundColor: '#3370ff' }"
+            >
+              <icon-user></icon-user>
+            </a-avatar>
+            <a-avatar
+              v-else-if="user.loginUser.userAvatar"
+              :imageUrl="user.loginUser.userAvatar"
+            >
+            </a-avatar>
+          </a-link>
+        </div>
+        <a-link
+          @click="() => (openSelect = !openSelect)"
+          v-show="user.loginUser.userName"
+          style="
+            margin-right: 20px;
+            margin-left: 20px;
+            font-size: 20px;
+            width: 100px;
+            margin-top: 5px;
+          "
+          :hoverable="false"
+        >
+          <template #icon> <icon-user size="large" /> </template
+          >{{ user.loginUser.userName }}
+        </a-link>
+        <a-dropdown @select="handleSelect" :popup-visible="openSelect">
+          <a-button
+            v-show="user.loginUser.userName"
+            @click="() => (openSelect = !openSelect)"
+            type="outline"
+            size="mini"
+            shape="round"
+            style="margin-top: 8px; margin-right: 20px"
+            ><icon-caret-down
+          /></a-button>
+          <template #content>
+            <a-doption :value="{ to: 'Option3' }">个人中心</a-doption>
+            <a-doption :value="{ to: 'Option3' }">我的题库</a-doption>
+            <a-doption :value="{ to: '/user/login' }">退出登录</a-doption>
+          </template>
+        </a-dropdown>
+        <a-link
+          href="/user/login"
+          v-show="!user.loginUser.userName"
+          style="margin-left: 10px"
+          >登录
+        </a-link>
+        <a-link
+          href="/user/register"
+          v-show="!user.loginUser.userName"
+          style="margin-left: 20px; margin-right: 20px"
+          >注册</a-link
+        >
+      </div>
     </a-col>
   </a-row>
 </template>
@@ -71,15 +144,11 @@ router.afterEach((to) => {
   font-weight: 600;
   margin-left: 16px;
 }
-.username {
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  background-color: #7eb953ff;
-  border-radius: 4px;
-  padding: 8px 16px;
-  margin-right: 24px;
-  width: 50px;
+.user {
+  display: flex;
+  justify-content: center;
+}
+.user .avatar {
+  margin-right: 16px;
 }
 </style>
