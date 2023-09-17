@@ -2,61 +2,50 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { QuestionSubmitAddRequest } from '../models/QuestionSubmitAddRequest';
+import type { QuestionSubmitQueryRequest } from '../models/QuestionSubmitQueryRequest';
 import type { ResultLong } from '../models/ResultLong';
-import type { ResultString } from '../models/ResultString';
-import type { ResultUserVO } from '../models/ResultUserVO';
-import type { UserLoginDTO } from '../models/UserLoginDTO';
-import type { UserRegisterDTO } from '../models/UserRegisterDTO';
+import type { ResultPageQuestionSubmitVO } from '../models/ResultPageQuestionSubmitVO';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class UserService {
+export class QuestionSubmitControllerService {
 
     /**
-     * 用户注册
+     * 提交题目
+     * 提交题目
      * @param requestBody 
      * @returns ResultLong OK
      * @throws ApiError
      */
-    public static userRegister(
-requestBody: UserRegisterDTO,
+    public static questionSubmit(
+requestBody: QuestionSubmitAddRequest,
 ): CancelablePromise<ResultLong> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/user/register',
+            url: '/question_submit',
             body: requestBody,
             mediaType: 'application/json',
         });
     }
 
     /**
-     * 用户登入
+     * 分页获取提交记录
+     * 分页获取提交记录
      * @param requestBody 
-     * @returns ResultString OK
+     * @returns ResultPageQuestionSubmitVO OK
      * @throws ApiError
      */
-    public static userLogin(
-requestBody: UserLoginDTO,
-): CancelablePromise<ResultString> {
+    public static getQuestionSubmitPage(
+requestBody: QuestionSubmitQueryRequest,
+): CancelablePromise<ResultPageQuestionSubmitVO> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/user/login',
+            url: '/question_submit/page',
             body: requestBody,
             mediaType: 'application/json',
-        });
-    }
-
-    /**
-     * 获取登录用户信息
-     * @returns ResultUserVO OK
-     * @throws ApiError
-     */
-    public static getLoginUser(): CancelablePromise<ResultUserVO> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/user/getLoginUser',
         });
     }
 

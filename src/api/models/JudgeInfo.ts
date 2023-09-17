@@ -3,10 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { UserVO } from './UserVO';
-
-export type ResultUserVO = {
-    code?: number;
-    message?: string;
-    data?: UserVO;
-};
+export type JudgeInfo = Record<string, any>;

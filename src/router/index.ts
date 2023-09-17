@@ -6,4 +6,10 @@ const router = createRouter({
   routes
 })
 
+router.afterEach((to, from) => {
+  if (to.path !== '/question/add' || !from.path.includes('update')) {
+    return
+  }
+  window.location.reload()
+})
 export default router

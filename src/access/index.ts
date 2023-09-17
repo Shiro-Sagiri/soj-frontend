@@ -8,6 +8,7 @@ router.beforeEach((to, from, next) => {
   if (to.fullPath === '/user/login') {
     user.loginUser = {}
     user.token = ''
+    localStorage.clear()
   }
   if (to.path.startsWith('/user')) {
     next()

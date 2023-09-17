@@ -12,8 +12,13 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@apidevtools/json-schema-ref-parser": "^10.1.0",
+    "@bytemd/plugin-gfm": "^1.21.0",
+    "@bytemd/plugin-highlight": "^1.21.0",
+    "@bytemd/vue-next": "^1.21.0",
     "axios": "^1.5.0",
     "form-data": "^4.0.0",
+    "monaco-editor": "^0.41.0",
     "pinia": "^2.1.6",
     "pinia-plugin-persistedstate": "^3.2.0",
     "vue": "^3.3.4",

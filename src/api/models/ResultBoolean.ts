@@ -3,10 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { UserVO } from './UserVO';
-
-export type ResultUserVO = {
+export type ResultBoolean = {
     code?: number;
     message?: string;
-    data?: UserVO;
+    data?: boolean;
 };

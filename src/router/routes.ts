@@ -4,22 +4,38 @@ import ACCESS_ENUM from '@/access/accessEnum'
 export const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/test',
+    redirect: '/question/list',
   },
   {
-    path: '/test',
-    name: '浏览题目',
-    component: () => import('../views/NoAuth.vue'),
+    path: '/question/add',
+    name: '创建题目',
+    component: () => import('../views/question/AddQuestionView.vue'),
     meta: {
-      access: ACCESS_ENUM.NOT_LOGIN
+      access: ACCESS_ENUM.ADMIN
     }
   },
   {
-    path: '/test2',
-    name: '关于我的',
-    component: () => import('../views/test-con.vue'),
+    path: '/question/update',
+    component: () => import('../views/question/AddQuestionView.vue'),
+    meta: {
+      access: ACCESS_ENUM.ADMIN,
+      hideInMenu: true
+    }
+  },
+  {
+    path: '/question/manage',
+    name: '题目管理',
+    component: () => import('../views/question/ManageQuestionView.vue'),
     meta: {
       access: ACCESS_ENUM.ADMIN
+    }
+  },
+  {
+    path: '/question/list',
+    name: '浏览题目',
+    component: () => import('../views/test-con.vue'),
+    meta: {
+      access: ACCESS_ENUM.NOT_LOGIN
     }
   },
   {
@@ -33,11 +49,9 @@ export const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/user',
-    name: '用户',
     children: [
       {
         path: 'login',
-        name: '用户登录',
         component: () => import('../views/user/UserLoginView.vue'),
         meta: {
           access: ACCESS_ENUM.USER
@@ -45,12 +59,34 @@ export const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'register',
-        name: '用户注册',
         component: () => import('../views/user/UserRegisterView.vue'),
         meta: {
           access: ACCESS_ENUM.USER
         }
-      }
+      },
+      {
+        path: 'profile',
+        component: () => import('../views/user/UserProfile.vue'),
+        redirect: '/user/profile/info',
+        meta: {
+          access: ACCESS_ENUM.ADMIN
+        },
+        children: [
+          {
+            path: 'info',
+            component: () => import('../views/user/UserInfo.vue'),
+          },
+          {
+            path: 'changeInfo'
+          },
+          {
+            path: 'myQuestion'
+          },
+          {
+            path: '/user/profile/changePwd'
+          }
+        ]
+      },
     ],
     meta: {
       hideInMenu: true,

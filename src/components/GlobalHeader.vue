@@ -34,7 +34,6 @@ router.afterEach((to) => {
   selectedKeys.value = [to.path]
 })
 
-const link = computed(() => `/user/${user.loginUser.userName}`)
 </script>
 
 <template>
@@ -65,7 +64,7 @@ const link = computed(() => `/user/${user.loginUser.userName}`)
     <a-col flex="200px">
       <div class="user">
         <div class="avatar">
-          <a-link :href="link" :hoverable="false">
+          <a-link href="/user/profile" :hoverable="false">
             <a-avatar
               v-if="!user.loginUser.userName || !user.loginUser.userAvatar"
               :style="{ backgroundColor: '#3370ff' }"
@@ -105,8 +104,8 @@ const link = computed(() => `/user/${user.loginUser.userName}`)
             ><icon-caret-down
           /></a-button>
           <template #content>
-            <a-doption :value="{ to: 'Option3' }">个人中心</a-doption>
-            <a-doption :value="{ to: 'Option3' }">我的题库</a-doption>
+            <a-doption :value="{ to: '/user/profile' }">个人中心</a-doption>
+            <a-doption :value="{ to: '/user/profile/myQuestion' }">我的题库</a-doption>
             <a-doption :value="{ to: '/user/login' }">退出登录</a-doption>
           </template>
         </a-dropdown>

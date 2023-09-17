@@ -3,10 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { UserVO } from './UserVO';
-
-export type ResultUserVO = {
-    code?: number;
-    message?: string;
-    data?: UserVO;
+export type QuestionSubmitAddRequest = {
+    questionId?: number;
+    language?: string;
+    code?: string;
 };
