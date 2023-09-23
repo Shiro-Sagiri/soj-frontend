@@ -183,16 +183,16 @@ const delJudgeCase = (index: JudgeCase) => {
             <template #title> 已有用例</template>
             <a-list>
               <a-list-item v-for="(item, index) in form.judgeCase" :key="index">
-                输入用例: {{ item.input }}, 输出用例:
-                {{ item.output }}
-                <a-button
-                  type="primary"
-                  status="danger"
-                  size="large"
-                  style="margin-left: 120px"
-                  @click="delJudgeCase(item)"
+                  <span>输入用例: {{ item.input }}, 输出用例:
+                {{ item.output }}</span>
+                  <a-button
+                    type="primary"
+                    status="danger"
+                    size="large"
+                    style='margin-left: 120px;'
+                    @click="delJudgeCase(item)"
                   >删除
-                </a-button>
+                  </a-button>
               </a-list-item>
             </a-list>
           </a-modal>

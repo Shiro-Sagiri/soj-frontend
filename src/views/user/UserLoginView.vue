@@ -35,7 +35,7 @@ const handleSubmit = async () => {
 <template>
   <div class="form">
     <div class="title-bar">
-      <img src="@/assets/shiro2.png" alt="" class="logo" />
+      <img src='../../assets/shiro.png' alt="" class="logo" />
       <div class="title">Shiro OJ</div>
     </div>
     <a-form :model="form" auto-label-width @submit="handleSubmit" size="large">

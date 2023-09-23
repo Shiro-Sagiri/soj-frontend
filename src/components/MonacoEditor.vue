@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import * as monaco from 'monaco-editor'
-import { onMounted, ref, toRaw } from 'vue'
+import { onMounted, ref, toRaw, watch } from 'vue'
 
 interface Props {
+  language: string
   value: string
   handleChange: (v: string) => void
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  language: () => 'java',
   value: () => '',
   handleChange: () => {} //设置编辑器的值
+})
+
+watch([() => props.language], () => {
+  //todo: 动态修改代码编辑器的编程语言
 })
 
 const editorRef = ref(null)
@@ -21,7 +27,7 @@ onMounted(() => {
   }
   editor.value = monaco.editor.create(editorRef.value, {
     value: props.value,
-    language: 'java',
+    language: props.language,
     automaticLayout: true,
     // minimap: {
     //   enabled: true

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import ACCESS_ENUM from '@/access/accessEnum'
-import { UserService } from '@/api'
+import { UserService, UserVO } from '@/api'
 
 export const useUserStore = defineStore(
   'user',
@@ -11,10 +11,10 @@ export const useUserStore = defineStore(
       token.value = newValue
     }
 
-    const loginUser = ref({
+    const loginUser = ref<UserVO>({
       userName: '',
       userRole: '',
-      userAvatar: ''
+      userAvatar: '',
     })
 
     const getUserInfo = async () => {

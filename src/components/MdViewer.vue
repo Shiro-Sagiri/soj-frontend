@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Editor } from '@bytemd/vue-next'
+import { Viewer } from '@bytemd/vue-next'
 import highlight from '@bytemd/plugin-highlight'
 import gfm from '@bytemd/plugin-gfm'
 
@@ -8,8 +8,6 @@ import gfm from '@bytemd/plugin-gfm'
  */
 interface Props {
   value: string
-  handleChange: (v: string) => void
-  mode?: string
 }
 
 const plugins = [
@@ -19,20 +17,12 @@ const plugins = [
 ]
 
 withDefaults(defineProps<Props>(), {
-  value: () => '',
-  handleChange: () => {},
-  mode: () => 'split'
+  value: () => ''
 })
 </script>
 
 <template>
-  <Editor
-    :value="value"
-    :plugins="plugins"
-    @change="handleChange"
-    style="min-width: 500px"
-    :mode="mode"
-  />
+  <Viewer :value="value" :plugins="plugins" style="min-width: 500px" />
 </template>
 
 <style>

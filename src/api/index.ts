@@ -35,6 +35,7 @@ export type { ResultString } from './models/ResultString';
 export type { ResultUserVO } from './models/ResultUserVO';
 export type { UserLoginDTO } from './models/UserLoginDTO';
 export type { UserRegisterDTO } from './models/UserRegisterDTO';
+export type { UserUpdateDTO } from './models/UserUpdateDTO';
 export type { UserVO } from './models/UserVO';
 
 export { QuestionControllerService } from './services/QuestionControllerService';

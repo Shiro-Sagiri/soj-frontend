@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { Question, QuestionControllerService } from '@/api'
 import { Message } from '@arco-design/web-vue'
 import { useRouter } from 'vue-router'
@@ -10,20 +10,28 @@ const tableRef = ref(null)
 const dataList = ref([])
 const total = ref(0)
 const searchParams = ref({
-  pageSize: 10,
-  pageNum: 1
+  pageSize: 5,
+  current: 1
 })
+
+const onPageChange = (num: number) => {
+  searchParams.value.current = num
+}
 const loadData = async () => {
   const res = await QuestionControllerService.getQuestionPage(
     searchParams.value
   )
   if (res.code === 0) {
     dataList.value = res.data?.records
-    total.value = parseInt(res.data?.total)
+    total.value = parseInt(res.data?.total as any)
   } else {
     Message.error('数据获取失败,' + res.message)
   }
 }
+
+watch(searchParams.value, () => {
+  loadData()
+})
 
 onMounted(() => {
   loadData()
@@ -111,10 +119,19 @@ const columns = [
       :data="dataList"
       :pagination="{
         pageSize: searchParams.pageSize,
-        current: searchParams.pageNum,
+        current: searchParams.current,
         total,
-        showTotal: true
+        showTotal: true,
+        showPageSize: true,
+        showJumper: true,
+        size: 'large',
+        pageSizeOptions: [5, 10, 20]
       }"
+      @page-change="onPageChange"
+      @page-size-change="(pageSize) => (searchParams.pageSize = pageSize)"
+      page-position="bottom"
+      :bordered="{cell: true}"
+      column-resizable
     >
       <template #optional="{ record }">
         <a-space>
@@ -128,7 +145,11 @@ const columns = [
   </div>
 </template>
 
-<style scoped>
-#manageQuestionView {
+<style>
+.arco-table-td-content {
+  text-align: center;
+}
+.arco-table-cell {
+  justify-content: center;
 }
 </style>

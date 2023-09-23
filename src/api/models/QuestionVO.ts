@@ -18,5 +18,4 @@ export type QuestionVO = {
     userVO?: UserVO;
     createTime?: string;
     updateTime?: string;
-    isDelete?: number;
 };

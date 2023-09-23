@@ -33,14 +33,22 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: '/question/list',
     name: '浏览题目',
-    component: () => import('../views/test-con.vue'),
+    component: () => import('../views/question/QuestionsView.vue'),
     meta: {
       access: ACCESS_ENUM.NOT_LOGIN
     }
   },
   {
+    path: '/question/view/:id',
+    component: () => import('../views/question/ViewQuestionsView.vue'),
+    props: true,
+    meta: {
+      access: ACCESS_ENUM.USER,
+      hideInMenu: true
+    }
+  },
+  {
     path: '/noAuth',
-    name: '无权限',
     component: () => import('../views/NoAuth.vue'),
     meta: {
       hideInMenu: true,
@@ -77,13 +85,20 @@ export const routes: Array<RouteRecordRaw> = [
             component: () => import('../views/user/UserInfo.vue'),
           },
           {
-            path: 'changeInfo'
+            path: 'changeInfo',
+            component: () => import('../views/user/UserChangeInfo.vue')
           },
           {
-            path: 'myQuestion'
+            path: 'changeAvatar',
+            component: () => import('../views/user/UserChangeAvatar.vue')
           },
           {
-            path: '/user/profile/changePwd'
+            path: 'myQuestion',
+            component: () => import('../views/user/MyQuestionSubmit.vue')
+          },
+          {
+            path: 'changePwd',
+            component: () => import('../views/user/UserChangePassword.vue')
           }
         ]
       },

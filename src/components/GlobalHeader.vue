@@ -33,7 +33,6 @@ const selectedKeys = ref(['/'])
 router.afterEach((to) => {
   selectedKeys.value = [to.path]
 })
-
 </script>
 
 <template>
@@ -51,7 +50,7 @@ router.afterEach((to) => {
             disabled
           >
             <div class="title-bar">
-              <img class="logo" src="../assets/shiro2.png" alt="" />
+              <img class="logo" src='../assets/shiro.png' alt="" />
               <div class="title">Shiro OJ</div>
             </div>
           </a-menu-item>
@@ -90,8 +89,10 @@ router.afterEach((to) => {
           "
           :hoverable="false"
         >
-          <template #icon> <icon-user size="large" /> </template
-          >{{ user.loginUser.userName }}
+          <template #icon>
+            <icon-user size="large" />
+          </template>
+          {{ user.loginUser.userName }}
         </a-link>
         <a-dropdown @select="handleSelect" :popup-visible="openSelect">
           <a-button
@@ -101,11 +102,14 @@ router.afterEach((to) => {
             size="mini"
             shape="round"
             style="margin-top: 8px; margin-right: 20px"
-            ><icon-caret-down
-          /></a-button>
+          >
+            <icon-caret-down />
+          </a-button>
           <template #content>
             <a-doption :value="{ to: '/user/profile' }">个人中心</a-doption>
-            <a-doption :value="{ to: '/user/profile/myQuestion' }">我的题库</a-doption>
+            <a-doption :value="{ to: '/user/profile/myQuestion' }"
+              >我的提交
+            </a-doption>
             <a-doption :value="{ to: '/user/login' }">退出登录</a-doption>
           </template>
         </a-dropdown>
@@ -119,8 +123,8 @@ router.afterEach((to) => {
           href="/user/register"
           v-show="!user.loginUser.userName"
           style="margin-left: 20px; margin-right: 20px"
-          >注册</a-link
-        >
+          >注册
+        </a-link>
       </div>
     </a-col>
   </a-row>
@@ -130,6 +134,7 @@ router.afterEach((to) => {
 .logo {
   height: 40px;
 }
+
 .title-bar {
   display: flex;
   align-items: center;
@@ -138,15 +143,18 @@ router.afterEach((to) => {
   background-color: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }
+
 .title {
   font-size: 20px;
   font-weight: 600;
   margin-left: 16px;
 }
+
 .user {
   display: flex;
   justify-content: center;
 }
+
 .user .avatar {
   margin-right: 16px;
 }

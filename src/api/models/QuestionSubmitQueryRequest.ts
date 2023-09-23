@@ -8,6 +8,8 @@ export type QuestionSubmitQueryRequest = {
     pageSize?: number;
     sortField?: string;
     sortOrder?: string;
+    title?: string;
+    tags?: Array<string>;
     language?: string;
     status?: number;
     questionId?: number;

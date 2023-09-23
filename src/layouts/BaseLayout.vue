@@ -23,7 +23,7 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
   padding: 20px;
   text-align: center;
   background: url(https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png)
-  0 0 / 100% 100%;
+    0 0 / 100% 100%;
   height: 100vh;
 }
 
@@ -36,6 +36,7 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
   right: 0;
   text-align: center;
 }
+
 .footer a {
   color: #7eb953ff;
   text-decoration: none;
