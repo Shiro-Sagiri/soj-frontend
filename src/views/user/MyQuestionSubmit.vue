@@ -35,10 +35,8 @@ watch(
   [
     () => searchParams.value.current,
     () => searchParams.value.pageSize,
-    () => searchParams.value.status
   ],
   () => {
-    searchParams.value.current = 1
     loadData()
   }
 )
@@ -47,7 +45,8 @@ watch(
   [
     () => searchParams.value.title,
     () => searchParams.value.tags,
-    () => searchParams.value.language
+    () => searchParams.value.language,
+    () => searchParams.value.status
   ],
   () => {
     // 清除之前的定时器

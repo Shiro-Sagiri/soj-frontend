@@ -37,7 +37,8 @@ onMounted(() => {
 })
 
 const data = ref<QuestionSubmitAddRequest>({
-  questionId: route.params.id as any
+  questionId: route.params.id as any,
+  language: 'java'
 })
 
 const submit = async () => {
