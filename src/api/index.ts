@@ -39,5 +39,4 @@ export type { UserUpdateDTO } from './models/UserUpdateDTO';
 export type { UserVO } from './models/UserVO';
 
 export { QuestionControllerService } from './services/QuestionControllerService';
-export { QuestionSubmitControllerService } from './services/QuestionSubmitControllerService';
 export { UserService } from './services/UserService';

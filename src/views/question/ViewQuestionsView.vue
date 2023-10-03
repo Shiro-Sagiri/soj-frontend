@@ -3,7 +3,6 @@ import { onMounted, ref } from 'vue'
 import {
   QuestionControllerService,
   QuestionSubmitAddRequest,
-  QuestionSubmitControllerService,
   QuestionVO
 } from '@/api'
 import { Message } from '@arco-design/web-vue'
@@ -46,7 +45,7 @@ const submit = async () => {
     Message.error('编程语言未选择,或代码为空')
     return
   }
-  const res = await QuestionSubmitControllerService.questionSubmit(data.value)
+  const res = await QuestionControllerService.questionSubmit(data.value)
   if (res.code === 0) {
     Message.success('提交成功')
     await router.push('/user/profile/myQuestion')
@@ -111,9 +110,9 @@ const submit = async () => {
               >
             </template>
             <a-option>java</a-option>
-            <a-option >cpp</a-option>
+            <a-option disabled>cpp</a-option>
             <a-option disabled>C</a-option>
-            <a-option >go</a-option>
+            <a-option disabled>go</a-option>
             <a-option disabled>Python</a-option>
           </a-select>
         </a-space>

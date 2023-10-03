@@ -3,4 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type JudgeInfo = Record<string, any>;
+export type JudgeInfo = {
+    message?: string;
+    memory?: number;
+    time?: number;
+};

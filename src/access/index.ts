@@ -7,7 +7,6 @@ router.beforeEach((to, from, next) => {
   const { user } = useStore()
   if (to.fullPath === '/user/login') {
     user.loginUser = {}
-    user.token = ''
     localStorage.clear()
   }
   if (to.path.startsWith('/user')) {
@@ -15,7 +14,7 @@ router.beforeEach((to, from, next) => {
     return
   }
   if (to.meta?.access !== ACCESS_ENUM.NOT_LOGIN) {
-    if ((!user.token || !user.loginUser.userRole) && !to.path.startsWith('/user')) {
+    if ((!user.loginUser.userRole) && !to.path.startsWith('/user')) {
       next(`/user/login?redirect=${to.fullPath}`) // 重定向到登录页`
       return
     }

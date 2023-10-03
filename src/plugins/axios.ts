@@ -1,14 +1,12 @@
 // Add a request interceptor
 import axios from 'axios'
-import { useStore } from '@/stores'
 import { Message } from '@arco-design/web-vue'
 import router from '@/router'
 
+axios.defaults.withCredentials = true
+
 axios.interceptors.request.use(
   function (config) {
-    const { user } = useStore()
-    config.headers.token = user.token
-    // Do something before request is sent
     return config
   },
   function (error) {

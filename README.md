@@ -1,3 +1,7 @@
 # soj
 
-本项目为 程序员鱼皮的付费项目 本人作为学习用 详细见 yupi.icu
+## 快速生成api
+
+```shell
+openapi --input http://localhost:8101/api/judge/v2/api-docs --output ./src/api --client axios
+```

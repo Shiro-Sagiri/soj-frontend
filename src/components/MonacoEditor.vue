@@ -15,7 +15,12 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 watch([() => props.language], () => {
-  //todo: 动态修改代码编辑器的编程语言
+  if (editor.value) {
+    monaco.editor.setModelLanguage(
+      toRaw(editor.value).getModel(),
+      props.language
+    )
+  }
 })
 
 const editorRef = ref(null)

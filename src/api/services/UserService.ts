@@ -26,7 +26,7 @@ requestBody: UserUpdateDTO,
 ): CancelablePromise<ResultLong> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/user',
+            url: '/user/updateInfo',
             body: requestBody,
             mediaType: 'application/json',
         });

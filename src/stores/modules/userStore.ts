@@ -6,15 +6,10 @@ import { UserService, UserVO } from '@/api'
 export const useUserStore = defineStore(
   'user',
   () => {
-    const token = ref('')
-    const setToken = (newValue: string) => {
-      token.value = newValue
-    }
-
     const loginUser = ref<UserVO>({
       userName: '',
       userRole: '',
-      userAvatar: '',
+      userAvatar: ''
     })
 
     const getUserInfo = async () => {
@@ -29,8 +24,6 @@ export const useUserStore = defineStore(
     return {
       loginUser,
       getUserInfo,
-      token,
-      setToken
     }
   },
   {

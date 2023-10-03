@@ -6,10 +6,13 @@ import type { DeleteRequest } from '../models/DeleteRequest';
 import type { QuestionAddRequest } from '../models/QuestionAddRequest';
 import type { QuestionEditRequest } from '../models/QuestionEditRequest';
 import type { QuestionQueryRequest } from '../models/QuestionQueryRequest';
+import type { QuestionSubmitAddRequest } from '../models/QuestionSubmitAddRequest';
+import type { QuestionSubmitQueryRequest } from '../models/QuestionSubmitQueryRequest';
 import type { QuestionUpdateRequest } from '../models/QuestionUpdateRequest';
 import type { ResultBoolean } from '../models/ResultBoolean';
 import type { ResultLong } from '../models/ResultLong';
 import type { ResultPageQuestion } from '../models/ResultPageQuestion';
+import type { ResultPageQuestionSubmitVO } from '../models/ResultPageQuestionSubmitVO';
 import type { ResultPageQuestionVO } from '../models/ResultPageQuestionVO';
 import type { ResultQuestion } from '../models/ResultQuestion';
 import type { ResultQuestionVO } from '../models/ResultQuestionVO';
@@ -50,7 +53,7 @@ id: number,
 ): CancelablePromise<ResultQuestionVO> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/question',
+            url: '/question/getQuestionVO',
             query: {
                 'id': id,
             },
@@ -69,7 +72,43 @@ requestBody: QuestionAddRequest,
 ): CancelablePromise<ResultLong> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/question',
+            url: '/question/add',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * 提交题目
+     * 提交题目
+     * @param requestBody 
+     * @returns ResultLong OK
+     * @throws ApiError
+     */
+    public static questionSubmit(
+requestBody: QuestionSubmitAddRequest,
+): CancelablePromise<ResultLong> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/question/questionSubmit/submit',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * 分页获取提交记录
+     * 分页获取提交记录
+     * @param requestBody 
+     * @returns ResultPageQuestionSubmitVO OK
+     * @throws ApiError
+     */
+    public static getQuestionSubmitPage(
+requestBody: QuestionSubmitQueryRequest,
+): CancelablePromise<ResultPageQuestionSubmitVO> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/question/questionSubmit/pageList',
             body: requestBody,
             mediaType: 'application/json',
         });

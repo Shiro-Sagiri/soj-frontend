@@ -59,8 +59,8 @@ const customRequest = (option: any): any => {
 
   const formData = new FormData()
   formData.append(name || 'file', fileItem.file)
-  xhr.open('post', 'http://localhost:8080/api/user/updateAvatar', false)
-  xhr.setRequestHeader('token', user.token)
+  xhr.open('post', 'http://localhost:8101/api/user/updateAvatar', false)
+  xhr.setRequestHeader("userId",user.loginUser.id as any)
   xhr.send(formData)
   imgUrl.value = JSON.parse(xhr.response).data
 }

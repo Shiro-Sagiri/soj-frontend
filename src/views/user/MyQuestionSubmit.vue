@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import {
-  QuestionSubmitControllerService,
+  JudgeConfig,
+  JudgeInfo,
+  QuestionControllerService,
   QuestionSubmitQueryRequest,
   QuestionSubmitVO
 } from '@/api'
 import { Message } from '@arco-design/web-vue'
 
 const tableRef = ref(null)
+const judgeInfoVisible = ref(false)
+const judgeInfo = ref<JudgeInfo>({})
+const judgeConfig = ref<JudgeConfig>({})
 
 const dataList = ref([])
 const total = ref(0)
@@ -20,7 +25,7 @@ const onPageChange = (num: number) => {
   searchParams.value.current = num
 }
 const loadData = async () => {
-  const res = await QuestionSubmitControllerService.getQuestionSubmitPage(
+  const res = await QuestionControllerService.getQuestionSubmitPage(
     searchParams.value
   )
   if (res.code === 0) {
@@ -32,10 +37,7 @@ const loadData = async () => {
 }
 
 watch(
-  [
-    () => searchParams.value.current,
-    () => searchParams.value.pageSize,
-  ],
+  [() => searchParams.value.current, () => searchParams.value.pageSize],
   () => {
     loadData()
   }
@@ -101,9 +103,11 @@ const columns = [
 ]
 
 const showJudgeInfo = (record: QuestionSubmitVO) => {
-  //todo: 详细信息待完成...
-  Message.info('未开发功能,' + record.judgeInfo)
+  judgeInfoVisible.value = true
+  judgeInfo.value = record.judgeInfo
+  judgeConfig.value = record.questionVO.judgeConfig
 }
+
 </script>
 
 <template>
@@ -136,6 +140,7 @@ const showJudgeInfo = (record: QuestionSubmitVO) => {
           placeholder="请选择..."
           style="min-width: 200px; text-align: left"
         >
+          <a-option value="">请选择...</a-option>
           <a-option value="0">待判题</a-option>
           <a-option value="1">判题中</a-option>
           <a-option value="2">通过</a-option>
@@ -191,7 +196,11 @@ const showJudgeInfo = (record: QuestionSubmitVO) => {
         {{
           `${
             record.questionVO.submitNum
-              ? record.questionVO.acceptedNum / record.questionVO.submitNum
+              ? (
+                  (record.questionVO.acceptedNum /
+                    record.questionVO.submitNum) *
+                  100
+                ).toFixed(2)
               : 0
           }%(${record.questionVO.acceptedNum} / ${record.questionVO.submitNum})`
         }}
@@ -211,16 +220,50 @@ const showJudgeInfo = (record: QuestionSubmitVO) => {
         >
       </template>
       <template #optional="{ record }">
-        <a-button
-          type="primary"
-          status="success"
-          @click="showJudgeInfo(record)"
-          size="large"
-        >
-          详细信息
-        </a-button>
+        <a-space>
+          <a-button
+            type="primary"
+            status="success"
+            @click="showJudgeInfo(record)"
+            size="large"
+          >
+            判题信息
+          </a-button>
+        </a-space>
       </template>
     </a-table>
+    <a-modal
+      v-model:visible="judgeInfoVisible"
+      :hide-cancel="true"
+      :simple="true"
+    >
+      <template #title> 判题详细信息</template>
+      <a-card>
+        <a-descriptions
+          size="large"
+          bordered
+          layout="vertical"
+          :column="2"
+          align="center"
+        >
+          <a-descriptions-item label="执行耗时"
+            >{{ judgeInfo.time + ' ms' ?? '未执行' }}
+          </a-descriptions-item>
+          <a-descriptions-item label="限制耗时"
+            >{{ judgeConfig.timeLimit + ' ms' }}
+          </a-descriptions-item>
+          <a-descriptions-item label="占用内存"
+            >{{ (judgeInfo.memory / 1000).toFixed(1) + ' KB' ?? '未执行' }}
+          </a-descriptions-item>
+          <a-descriptions-item label="限制内存"
+            >{{ (judgeConfig.memoryLimit / 1000).toFixed(1) + ' KB' }}
+          </a-descriptions-item>
+          <a-descriptions-item label="判题信息"
+            >{{ judgeInfo.message ?? '未执行' }}
+          </a-descriptions-item>
+        </a-descriptions>
+      </a-card>
+    </a-modal>
   </div>
 </template>
 

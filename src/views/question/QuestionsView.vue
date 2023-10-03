@@ -152,7 +152,11 @@ const toQuestionPage = (question: Question) => {
       </template>
       <template #acceptedRate="{ record }">
         {{
-          `${record.submitNum ? record.acceptedNum / record.submitNum : 0}%(${
+          `${record.submitNum ? (
+            (record.acceptedNum /
+              record.submitNum) *
+            100
+          ).toFixed(2) : 0}%(${
             record.acceptedNum
           } / ${record.submitNum})`
         }}
