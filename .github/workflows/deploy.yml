@@ -1,10 +1,29 @@
+name: 部署前端
 on: push
+
+permissions:
+  contents: write
+
 jobs:
-  package:
+  bulid:
+    name: 打包
     runs-on: ubuntu-latest
     steps:
-     - run: pwd
-     - run: ls
+     - name: 读取仓库内容
+       uses: actions/checkout@v4
+     - name: 打印工作路径
+       run: pwd
+     - name: 打印npm版本
+       run: npm -v
+     - name: 安装依赖
+       run: npm install
+     - name: 项目打包
+       run: npm run bulid
+     - name: 部署
+       uses: JamesIves/github-pages-deploy-action@v4
+       with:
+         branch: gh-pages
+         folder: bulid
   job2:
     runs-on: ubuntu-latest
     steps:
