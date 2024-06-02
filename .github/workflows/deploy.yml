@@ -1,0 +1,12 @@
+on: push
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+     - run: pwd
+     - run: ls
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+     - run: node -v
+     
