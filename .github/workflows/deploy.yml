@@ -24,8 +24,3 @@ jobs:
        with:
          branch: gh-pages
          folder: bulid
-  job2:
-    runs-on: ubuntu-latest
-    steps:
-     - run: node -v
-     
