@@ -20,7 +20,7 @@ export type OpenAPIConfig = {
 };
 
 export const OpenAPI: OpenAPIConfig = {
-    BASE: 'http://shiro.work:8001/api',
+    BASE: 'https://shiro.work/api',
     VERSION: '0',
     WITH_CREDENTIALS: true,
     CREDENTIALS: 'include',
